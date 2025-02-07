@@ -115,10 +115,12 @@ export interface AssignableRoles extends Role {
 
 // From codersdk/audit.go
 export type AuditAction =
+	| "connect"
 	| "create"
 	| "delete"
 	| "login"
 	| "logout"
+	| "open"
 	| "register"
 	| "request_password_reset"
 	| "start"
@@ -126,10 +128,12 @@ export type AuditAction =
 	| "write";
 
 export const AuditActions: AuditAction[] = [
+	"connect",
 	"create",
 	"delete",
 	"login",
 	"logout",
+	"open",
 	"register",
 	"request_password_reset",
 	"start",
@@ -1980,6 +1984,8 @@ export type ResourceType =
 	| "template_version"
 	| "user"
 	| "workspace"
+	| "workspace_agent"
+	| "workspace_app"
 	| "workspace_build"
 	| "workspace_proxy";
 
@@ -2004,6 +2010,8 @@ export const ResourceTypes: ResourceType[] = [
 	"template_version",
 	"user",
 	"workspace",
+	"workspace_agent",
+	"workspace_app",
 	"workspace_build",
 	"workspace_proxy",
 ];

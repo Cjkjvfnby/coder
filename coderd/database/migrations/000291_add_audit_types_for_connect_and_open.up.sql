@@ -1,0 +1,9 @@
+-- Add new audit types for connect and open actions.
+ALTER TYPE audit_action
+	ADD VALUE IF NOT EXISTS 'connect';
+ALTER TYPE resource_type
+	ADD VALUE IF NOT EXISTS 'workspace_agent';
+ALTER TYPE audit_action
+	ADD VALUE IF NOT EXISTS 'open';
+ALTER TYPE resource_type
+	ADD VALUE IF NOT EXISTS 'workspace_app';
