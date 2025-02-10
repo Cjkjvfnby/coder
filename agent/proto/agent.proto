@@ -6,6 +6,7 @@ package coder.agent.v2;
 import "tailnet/proto/tailnet.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
 
 message WorkspaceApp {
 	bytes id = 1;
@@ -295,6 +296,25 @@ message Timing {
     Status status = 6;
 }
 
+message Connection {
+	enum Type {
+		CONNECTION_TYPE_UNSPECIFIED = 0;
+		SSH = 1;
+		VSCODE = 2;
+		JETBRAINS = 3;
+		RECONNECTING_PTY = 4;
+	}
+
+	bytes id = 1;
+	google.protobuf.Timestamp start = 2;
+    google.protobuf.Timestamp end = 3;
+	Type type = 4;
+}
+
+message ReportConnectionRequest {
+	Connection connection = 1;
+}
+
 service Agent {
 	rpc GetManifest(GetManifestRequest) returns (Manifest);
 	rpc GetServiceBanner(GetServiceBannerRequest) returns (ServiceBanner);
@@ -306,4 +326,5 @@ service Agent {
 	rpc BatchCreateLogs(BatchCreateLogsRequest) returns (BatchCreateLogsResponse);
 	rpc GetAnnouncementBanners(GetAnnouncementBannersRequest) returns (GetAnnouncementBannersResponse);
 	rpc ScriptCompleted(WorkspaceAgentScriptCompletedRequest) returns (WorkspaceAgentScriptCompletedResponse);
+	rpc ReportConnection(ReportConnectionRequest) returns (google.protobuf.Empty);
 }

@@ -44,6 +44,7 @@ type API struct {
 	*MetadataAPI
 	*LogsAPI
 	*ScriptsAPI
+	*AuditAPI
 	*tailnet.DRPCService
 
 	mu sync.Mutex
@@ -143,6 +144,12 @@ func New(opts Options) *API {
 
 	api.ScriptsAPI = &ScriptsAPI{
 		Database: opts.Database,
+	}
+
+	api.AuditAPI = &AuditAPI{
+		AgentFn:  api.agent,
+		Database: opts.Database,
+		Log:      opts.Log,
 	}
 
 	api.DRPCService = &tailnet.DRPCService{
